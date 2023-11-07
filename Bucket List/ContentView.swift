@@ -7,10 +7,14 @@
 
 import SwiftUI
 
-struct User: Identifiable {
+struct User: Identifiable, Comparable {
     let id = UUID()
     let firstName: String
     let lastName: String
+    
+    static func < (lhs: User, rhs: User) -> Bool {
+        lhs.lastName < rhs.lastName
+    }
 }
 
 struct ContentView: View {
@@ -18,13 +22,15 @@ struct ContentView: View {
         User(firstName: "Arnold", lastName: "Rimmer"),
         User(firstName: "Kristine", lastName: "Kochanski"),
         User(firstName: "David", lastName: "Lister"),
-    ]
+    ].sorted {
+        $0.lastName < $1.lastName
+    }
     
     let values = [1,4,6,7,2,8,9].sorted()
     
     var body: some View {
-        List(values, id: \.self) {
-            Text(String($0))
+        List(users) { user in
+            Text("\(user.firstName) \(user.lastName)")
         }
     }
 }
