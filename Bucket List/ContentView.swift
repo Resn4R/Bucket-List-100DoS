@@ -23,7 +23,9 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack{
+            
             Map(initialPosition: cameraPosition) {
+                
                 ForEach(locations) { location in
                     Annotation(location.name, coordinate: location.coordinate, anchor: .center) {
                         Image(systemName: "mappin")
@@ -32,7 +34,16 @@ struct ContentView: View {
                             }
                     }
                 }
+                
+                UserAnnotation()
             }
+            .mapControls {
+                MapCompass()
+                MapScaleView()
+                MapUserLocationButton()
+                MapPitchToggle()
+            }
+            .mapStyle(.standard(elevation: .realistic))
         }
     }
 }
