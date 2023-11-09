@@ -9,15 +9,23 @@ import SwiftUI
 
 struct MapView: View {
     @State var userPosition: CLLocationCoordinate2D?
-    private var cameraPosition: MapCameraPosition = .automatic
-    @State private var locations = [Location]()
+    var cameraPosition: MapCameraPosition = .automatic
+    @State var locations: [Location]
 
     
     var body: some View {
         NavigationStack{
                 ZStack {
                     Map(initialPosition: cameraPosition) {
-                        
+                        ForEach(locations) { location in
+                            let locationPosition = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+                            Annotation(coordinate: locationPosition) {
+                                //content
+                            } label: {
+                                Label(location.name, systemImage: "mapping")
+                            }
+
+                        }
                         UserAnnotation()
                     }
                     .mapControls {
@@ -36,8 +44,10 @@ struct MapView: View {
                     VStack {
                         HStack {
                             Button {
-                                let centre = cameraPosition.camera?.centerCoordinate
-                                let newLocation = Location(id: UUID(), name: "New Location", description: "", latitude: centre?.latitude, longitude: centre?.longitude)
+                                if let centre = cameraPosition.camera?.centerCoordinate {
+                                    let newLocation = Location(id: UUID(), name: "New Location", description: "", latitude: centre.latitude, longitude: centre.longitude)
+                                    locations.append(newLocation)
+                                }
                             } label: { Image(systemName: "plus.circle") }
                                 .font(.title2)
                                 .frame(width: 50, height: 50)
@@ -55,5 +65,6 @@ struct MapView: View {
 }
 
 #Preview {
-    MapView()
+    var samplePlaces = [Location(id: UUID(), name: "Sample", description: "", latitude: 51.4, longitude: -0.12)]
+    MapView(locations: samplePlaces)
 }

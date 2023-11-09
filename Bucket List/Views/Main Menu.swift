@@ -23,7 +23,7 @@ struct CustomText: View {
 struct Main_Menu: View {
     @State private var userPosition: CLLocationCoordinate2D?
     @State private var cameraPosition: MapCameraPosition?
-    @State private var customLocationPins: Location?
+    @State private var customLocationPins = [Location]()
     private let defaultCoordinates: CLLocationCoordinate2D = .init(latitude: 51.5, longitude: -0.12)
     private let defaultCameraPosition: MapCameraPosition = .camera(MapCamera(centerCoordinate: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12), distance: 15000))
     
@@ -36,7 +36,7 @@ struct Main_Menu: View {
                         .offset(y: 30)
                     
                     NavigationLink{
-                        MapView()
+                        MapView(locations: customLocationPins)
                     } label: {
                         Map(initialPosition: cameraPosition ?? defaultCameraPosition)
                             .frame(width: 350, height: 175)
