@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MapView: View {
     @State var userPosition: CLLocationCoordinate2D?
-    var cameraPosition: MapCameraPosition = .automatic
+    private let cameraRegion
+    var cameraPosition: MapCameraPosition = .region(<#T##region: MKCoordinateRegion##MKCoordinateRegion#>)
     @State var locations: [Location]
 
     
@@ -50,10 +51,11 @@ struct MapView: View {
                                 }
                             } label: { Image(systemName: "plus.circle") }
                                 .font(.title2)
-                                .frame(width: 50, height: 50)
-                                .background(.thinMaterial)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .padding([.vertical, .leading], 10)
+                                .frame(width: 45, height: 45)
+                                .background(.thickMaterial)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .padding(.vertical, 5)
+                                .padding(.leading, 5)
                             Spacer()
                         }
                         Spacer()
@@ -65,6 +67,5 @@ struct MapView: View {
 }
 
 #Preview {
-    var samplePlaces = [Location(id: UUID(), name: "Sample", description: "", latitude: 51.4, longitude: -0.12)]
-    MapView(locations: samplePlaces)
+    MapView(locations: [Location]())
 }
