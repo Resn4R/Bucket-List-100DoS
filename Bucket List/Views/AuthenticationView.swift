@@ -26,7 +26,7 @@ struct AuthenticationView: View {
                 .fontDesign(.serif)
             if isUnlocked {
                 NavigationLink("") {
-                    ContentView()
+                    Main_Menu()
                 }
             }
 

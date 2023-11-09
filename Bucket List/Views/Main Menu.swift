@@ -9,32 +9,52 @@ import CoreLocation
 import SwiftData
 import SwiftUI
 
+struct CustomText: View {
+    @State var text: String
+    var body: some View {
+        Text(text)
+            .font(.headline)
+            .bold()
+            .fontDesign(.serif)
+            .padding()
+    }
+}
+
 struct Main_Menu: View {
     @State private var userPosition: CLLocationCoordinate2D?
+    @State private var cameraPosition: MapCameraPosition?
+    @State private var customLocationPins: Location?
     private let defaultCoordinates: CLLocationCoordinate2D = .init(latitude: 51.5, longitude: -0.12)
+    private let defaultCameraPosition: MapCameraPosition = .camera(MapCamera(centerCoordinate: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12), distance: 15000))
     
-    private var cameraPosition: MapCameraPosition = .camera(MapCamera(
-        centerCoordinate: userPosition ?? CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12),
-        distance: 100_000))
+    
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack {
-                    Text("Add a new Pin to you Bukkit")
-                        .font(.headline)
-                        .bold()
-                        .fontDesign(.serif)
-                        .padding()
+                    CustomText(text: "Add a new pin to your Bukkit")
+                        .offset(y: 30)
                     
-                    ZStack {
-                        Map(initialPosition: <#T##MapCameraPosition#>)
-                        {
-                           
-                        }
+                    NavigationLink(destination: MapView(), label: {
+                        Map(initialPosition: cameraPosition ?? defaultCameraPosition)
                             .frame(width: 350, height: 175)
                             .clipShape(RoundedRectangle(cornerRadius: 25))
-                    }
+                    })
+                    .padding()
+                    
+                    CustomText(text: "Your Saved Locations")
+                        .offset(y: 30)
+                    
+//                    Group {
+//                        if let customLocationPins = customLocationPins {
+//                            List {
+//                                ForEach(customLocationPins) { pin in
+//                                    
+//                                }
+//                            }
+//                        }
+//                    }
                 }
             }
             .navigationTitle("Bukkit")
@@ -50,6 +70,9 @@ struct Main_Menu: View {
             
             if let userLocation = locationManager.location?.coordinate {
                 userPosition = userLocation
+                cameraPosition = .camera(MapCamera(
+                    centerCoordinate: userPosition ?? defaultCoordinates,
+                    distance: 100_000))
             }
         }
     }
