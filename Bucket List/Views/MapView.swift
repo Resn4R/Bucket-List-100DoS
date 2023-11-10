@@ -75,8 +75,9 @@ extension CLLocationCoordinate2D {
 }
 
 extension MKCoordinateRegion {
-    static let defaultRegion = MKCoordinateRegion(center: .defaultPosition, latitudinalMeters: 10000, longitudinalMeters: 10000)
+    static let defaultRegion = MKCoordinateRegion(center: .defaultPosition, latitudinalMeters: 300_000, longitudinalMeters: 300_000)
 }
+
 
 //
 //#Preview {

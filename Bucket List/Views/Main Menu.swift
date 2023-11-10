@@ -34,18 +34,30 @@ struct Main_Menu: View {
                     CustomText(text: "Add a new pin to your Bukkit")
                         .offset(y: 30)
                     
-                    NavigationLink{
-                        MapView(camera: camera, cameraPosition: cameraPosition)
-                    } label: {
-                        Map(initialPosition: cameraPosition)
+                    NavigationLink(destination: MapView(camera: camera, cameraPosition: cameraPosition), label: {
+                        Map(initialPosition: .region(.defaultRegion))
                             .frame(width: 350, height: 175)
                             .clipShape(RoundedRectangle(cornerRadius: 25))
-                    }
+                    })
                     .padding()
                     Section {
-                        CustomText(text: "Your Saved Locations")
-                            .offset(y: 30)
-                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 25)
+                                .fill(.gray)
+                                .frame(width: 350, height: 500)
+                                .opacity(0.1)
+                            VStack{
+                                CustomText(text: "Your Saved Locations")
+                                Divider()
+                                    .frame(width: 350)
+                                if locations.isEmpty{
+                                    ContentUnavailableView("No saved pins", systemImage: "mappin.slash.circle", description: Text("You have no saved pins.\nClick on the map above to add new pins."))
+                                } else {
+                                    //show list of locations
+                                }
+                                Spacer()
+                            }
+                        }
                     }
                 }
             }
