@@ -35,9 +35,10 @@ struct Main_Menu: View {
                         .offset(y: 30)
                     
                     NavigationLink(destination: MapView(camera: camera, cameraPosition: cameraPosition), label: {
-                        Map(initialPosition: .region(.defaultRegion))
-                            .frame(width: 350, height: 175)
-                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                            Map(initialPosition: .region(.defaultRegion))
+                                .frame(width: 350, height: 175)
+                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                                .disabled(true)
                     })
                     .padding()
                     Section {
