@@ -4,26 +4,29 @@
 //
 //  Created by Vito Borghi on 06/11/2023.
 //
+
+import SwiftData
 import MapKit
 import SwiftUI
 
 struct MapView: View {
-    @State var userPosition: CLLocationCoordinate2D?
-    private let cameraRegion
-    var cameraPosition: MapCameraPosition = .region(<#T##region: MKCoordinateRegion##MKCoordinateRegion#>)
-    @State var locations: [Location]
+    @Query var locations: [Location]
 
+    @State var camera: MapCamera
+    @State var cameraPosition: MapCameraPosition
+    
+    @State private var showCustomMarkerSheet = false
     
     var body: some View {
         NavigationStack{
                 ZStack {
-                    Map(initialPosition: cameraPosition) {
+                    Map(position: $cameraPosition ) {
                         ForEach(locations) { location in
                             let locationPosition = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
                             Annotation(coordinate: locationPosition) {
                                 //content
                             } label: {
-                                Label(location.name, systemImage: "mapping")
+                                Label(location.name, systemImage: "mappin")
                             }
 
                         }
@@ -35,7 +38,7 @@ struct MapView: View {
                         MapPitchToggle()
                     }
                     .mapStyle(.standard(elevation: .realistic))
-                    
+
                     Circle()
                         .fill(.blue)
                         .opacity(0.3)
@@ -44,12 +47,11 @@ struct MapView: View {
                         
                     VStack {
                         HStack {
-                            Button {
-                                if let centre = cameraPosition.camera?.centerCoordinate {
-                                    let newLocation = Location(id: UUID(), name: "New Location", description: "", latitude: centre.latitude, longitude: centre.longitude)
-                                    locations.append(newLocation)
-                                }
-                            } label: { Image(systemName: "plus.circle") }
+                            Button{
+                                showCustomMarkerSheet.toggle()
+                            } label: {
+                                // label
+                                Image(systemName: "plus.circle") }
                                 .font(.title2)
                                 .frame(width: 45, height: 45)
                                 .background(.thickMaterial)
@@ -62,10 +64,26 @@ struct MapView: View {
                     }
             }
         }
+        .sheet(isPresented: $showCustomMarkerSheet, content: {
+            AddCustomMarkerView()
+        })
     }
-
 }
 
-#Preview {
-    MapView(locations: [Location]())
+extension CLLocationCoordinate2D {
+    static let defaultPosition = CLLocationCoordinate2D(latitude: 51.2, longitude: -0.12)
 }
+
+extension MKCoordinateRegion {
+    static let defaultRegion = MKCoordinateRegion(center: .defaultPosition, latitudinalMeters: 10000, longitudinalMeters: 10000)
+}
+
+//
+//#Preview {
+//    var customLocationPins = [Location]()
+//    
+//    var camera = MapCamera(centerCoordinate: CLLocationCoordinate2D(latitude: 51.2, longitude: -0.12), distance: 1500)
+//    var cameraPosition: MapCameraPosition = .region(.defaultRegion)
+//    
+//    MapView(camera: camera, cameraPosition: cameraPosition)
+//}
