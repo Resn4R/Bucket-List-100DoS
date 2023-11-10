@@ -13,7 +13,7 @@ struct MapView: View {
     @Query var locations: [Location]
 
     @State var camera: MapCamera
-    @State var cameraPosition: MapCameraPosition
+    @Binding var cameraPosition: MapCameraPosition
     
     @State private var showCustomMarkerSheet = false
     
@@ -65,7 +65,7 @@ struct MapView: View {
             }
         }
         .sheet(isPresented: $showCustomMarkerSheet, content: {
-            AddCustomMarkerView()
+            AddCustomMarkerView(cameraCentralPosition: $cameraPosition)
         })
     }
 }

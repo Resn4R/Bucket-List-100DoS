@@ -34,8 +34,8 @@ struct Main_Menu: View {
                     CustomText(text: "Add a new pin to your Bukkit")
                         .offset(y: 30)
                     
-                    NavigationLink(destination: MapView(camera: camera, cameraPosition: cameraPosition), label: {
-                            Map(initialPosition: .region(.defaultRegion))
+                    NavigationLink(destination: MapView(camera: camera, cameraPosition: $cameraPosition), label: {
+                            Map(position: $cameraPosition)
                                 .frame(width: 350, height: 175)
                                 .clipShape(RoundedRectangle(cornerRadius: 25))
                                 .disabled(true)
@@ -45,7 +45,7 @@ struct Main_Menu: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 25)
                                 .fill(.gray)
-                                .frame(width: 350, height: 500)
+                                .frame(minWidth: 350, minHeight: 270, maxHeight: .infinity)
                                 .opacity(0.1)
                             VStack{
                                 CustomText(text: "Your Saved Locations")

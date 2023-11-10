@@ -5,6 +5,7 @@
 //  Created by Vito Borghi on 09/11/2023.
 //
 
+import MapKit
 import SwiftData
 import SwiftUI
 
@@ -14,6 +15,8 @@ struct AddCustomMarkerView: View {
     
     @State private var locationName: String = ""
     @State private var locationDescription: String = ""
+    
+    @Binding var cameraCentralPosition: MapCameraPosition
     
     var body: some View {
         NavigationStack {
@@ -30,7 +33,7 @@ struct AddCustomMarkerView: View {
                 }header: {
                     Text("Pin description")
                 }
-            }
+                
                 Section {
                     HStack {
                         Button {
@@ -50,7 +53,7 @@ struct AddCustomMarkerView: View {
                                 .tint(.red)
                         }
                         .padding(.horizontal)
-
+                        
                         Button {
                             //set marker to colour
                         } label: {
@@ -59,7 +62,7 @@ struct AddCustomMarkerView: View {
                                 .tint(.green)
                         }
                         .padding(.horizontal)
-
+                        
                         Button {
                             //set marker to colour
                         } label: {
@@ -68,7 +71,7 @@ struct AddCustomMarkerView: View {
                                 .tint(.yellow)
                         }
                         .padding(.horizontal)
-
+                        
                         Button {
                             //set marker to colour
                         } label: {
@@ -82,23 +85,32 @@ struct AddCustomMarkerView: View {
                 } header: {
                     Text("Pin colour")
                 }
-                .toolbar{
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button("Done"){
-                            //save location
-                        }
-                    }
-                    
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Cancel") {
-                            dismissView()
-                        }
+                Section{
+                    Map(position: $cameraCentralPosition )
+                        .disabled(true)
+                }
+                .frame(width: 350, height: 175)
+                .clipShape(RoundedRectangle(cornerRadius: 25))
+            }
+            
+            .toolbar{
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Done"){
+                        //save location
                     }
                 }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Cancel") {
+                        dismissView()
+                    }
+                }
+            }
         }
     }
 }
 
-#Preview {
-    AddCustomMarkerView()
-}
+//#Preview {
+//    let cameraPosition: MapCameraPosition = .region(.defaultRegion)
+//    AddCustomMarkerView( cameraCentralPosition: cameraPosition)
+//}
