@@ -56,7 +56,17 @@ struct Main_Menu: View {
                                 if locations.isEmpty{
                                     ContentUnavailableView("No saved pins", systemImage: "mappin.slash.circle", description: Text("You have no saved pins.\nClick on the map above to add new pins."))
                                 } else {
-                                    //show list of locations
+                                    List {
+                                        ForEach(locations) { location in
+                                            NavigationLink(destination:EditCustomPinView(locationToEdit: location)) {
+                                                HStack {
+                                                    Image(systemName: "mappin")
+                                                    Text(location.name)
+                                                }
+                                            }
+                                        }
+                                    }
+                                    Spacer()
                                 }
                                 Spacer()
                             }
