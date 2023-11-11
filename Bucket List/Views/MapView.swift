@@ -14,6 +14,7 @@ struct MapView: View {
 
     @State var camera: MapCamera
     @Binding var cameraPosition: MapCameraPosition
+    @State private var cameraCoordinates: CLLocationCoordinate2D = .defaultPosition
     
     @State private var showCustomMarkerSheet = false
     
@@ -31,6 +32,10 @@ struct MapView: View {
 
                         }
                         UserAnnotation()
+                    }
+                    .onMapCameraChange { mapCameraUpdateContext in
+                        print("\(mapCameraUpdateContext.camera.centerCoordinate)")
+                        cameraCoordinates = mapCameraUpdateContext.camera.centerCoordinate
                     }
                     .mapControls {
                         MapCompass()
@@ -65,7 +70,7 @@ struct MapView: View {
             }
         }
         .sheet(isPresented: $showCustomMarkerSheet, content: {
-            AddCustomMarkerView(cameraPosition: $cameraPosition)
+            AddCustomMarkerView(cameraPosition: $cameraPosition, cameraCoordinates: $cameraCoordinates)
         })
     }
 }

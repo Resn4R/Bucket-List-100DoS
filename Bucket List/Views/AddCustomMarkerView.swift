@@ -11,12 +11,14 @@ import SwiftUI
 
 struct AddCustomMarkerView: View {
     @Environment(\.dismiss) var dismissView
+    @Environment(\.modelContext) var modelContext
     @Query var locations: [Location]
     
     @State private var locationName: String = ""
     @State private var locationDescription: String = ""
     
     @Binding var cameraPosition: MapCameraPosition
+    @Binding var cameraCoordinates: CLLocationCoordinate2D
     
     var body: some View {
         NavigationStack {
@@ -96,8 +98,14 @@ struct AddCustomMarkerView: View {
             .toolbar{
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done"){
-                        print("\(String(describing: cameraPosition.camera?.centerCoordinate))")
-                        //let newLocation = Location(id: UUID(), name: locationName, locationDescription: locationDescription, latitude: <#T##Double#>, longitude: <#T##Double#>)
+                        let newLocation = Location(id: UUID(), name: locationName, locationDescription: locationDescription, latitude: cameraCoordinates.latitude, longitude: cameraCoordinates.longitude)
+                        
+                        modelContext.insert(newLocation)
+                        
+                        do { try modelContext.save() }
+                        catch {
+                            print("Saving to modelContainer failed.")
+                        }
                     }
                 }
                 

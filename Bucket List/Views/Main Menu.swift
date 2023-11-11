@@ -49,8 +49,10 @@ struct Main_Menu: View {
                                 .opacity(0.1)
                             VStack{
                                 CustomText(text: "Your Saved Locations")
+                                
                                 Divider()
                                     .frame(width: 350)
+                                
                                 if locations.isEmpty{
                                     ContentUnavailableView("No saved pins", systemImage: "mappin.slash.circle", description: Text("You have no saved pins.\nClick on the map above to add new pins."))
                                 } else {
@@ -59,6 +61,7 @@ struct Main_Menu: View {
                                 Spacer()
                             }
                         }
+                        .frame(width: 350)
                     }
                 }
             }
