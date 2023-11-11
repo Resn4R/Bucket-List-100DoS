@@ -65,7 +65,7 @@ struct MapView: View {
             }
         }
         .sheet(isPresented: $showCustomMarkerSheet, content: {
-            AddCustomMarkerView(cameraCentralPosition: $cameraPosition)
+            AddCustomMarkerView(cameraPosition: $cameraPosition)
         })
     }
 }

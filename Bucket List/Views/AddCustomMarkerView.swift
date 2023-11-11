@@ -16,7 +16,7 @@ struct AddCustomMarkerView: View {
     @State private var locationName: String = ""
     @State private var locationDescription: String = ""
     
-    @Binding var cameraCentralPosition: MapCameraPosition
+    @Binding var cameraPosition: MapCameraPosition
     
     var body: some View {
         NavigationStack {
@@ -86,7 +86,7 @@ struct AddCustomMarkerView: View {
                     Text("Pin colour")
                 }
                 Section{
-                    Map(position: $cameraCentralPosition )
+                    Map(position: $cameraPosition )
                         .disabled(true)
                 }
                 .frame(width: 350, height: 175)
@@ -96,7 +96,8 @@ struct AddCustomMarkerView: View {
             .toolbar{
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done"){
-                        //save location
+                        print("\(String(describing: cameraPosition.camera?.centerCoordinate))")
+                        //let newLocation = Location(id: UUID(), name: locationName, locationDescription: locationDescription, latitude: <#T##Double#>, longitude: <#T##Double#>)
                     }
                 }
                 
