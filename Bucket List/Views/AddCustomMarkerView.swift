@@ -88,7 +88,7 @@ struct AddCustomMarkerView: View {
                     Text("Pin colour")
                 }
                 Section{
-                    Map(position: $cameraPosition )
+                    Map(position: $cameraPosition)
                         .disabled(true)
                 }
                 .frame(width: 350, height: 175)
@@ -104,7 +104,7 @@ struct AddCustomMarkerView: View {
                         
                         do { try modelContext.save() }
                         catch {
-                            print("Saving to modelContainer failed.")
+                            print("Saving to modelContainer failed. \(error.localizedDescription)")
                         }
                     }
                 }

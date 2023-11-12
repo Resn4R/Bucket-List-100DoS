@@ -21,6 +21,7 @@ struct CustomText: View {
 }
 
 struct Main_Menu: View {
+    @Environment (\.modelContext) var modelContext
     @Query var locations: [Location]
     
     @State private var camera = MapCamera(centerCoordinate: CLLocationCoordinate2D(latitude: 51.2, longitude: -0.12), distance: 1500)
@@ -65,6 +66,19 @@ struct Main_Menu: View {
                                                 }
                                             }
                                         }
+                                        .onDelete { indexSet in
+                                            withAnimation {
+                                                indexSet.forEach { index in
+                                                    let pinToDelete = locations[index]
+                                                    modelContext.delete(pinToDelete)
+                                                }
+                                            }
+                                            do { try modelContext.save() }
+                                            catch {
+                                                print("Error when saving from item deletion. \(error.localizedDescription)")
+                                            }
+                                        }
+                                        
                                     }
                                     Spacer()
                                 }
@@ -79,7 +93,6 @@ struct Main_Menu: View {
             .navigationBarTitleDisplayMode(.large)
         }
     }
-    
 }
 
 #Preview {
