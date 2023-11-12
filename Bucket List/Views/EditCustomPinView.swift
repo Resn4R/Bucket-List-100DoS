@@ -15,12 +15,15 @@ struct EditCustomPinView: View {
     @State var locationToEdit: Location
     
     var body: some View {
-        Text(locationToEdit.name)
-        Text(locationToEdit.locationDescription)
-        Text("location coordinates: \(locationToEdit.latitude), \(locationToEdit.longitude)")
+        Section {
+            Text(locationToEdit.name)
+            Text(locationToEdit.locationDescription)
+            Text("location coordinates: \(locationToEdit.latitude), \(locationToEdit.longitude)")
+        }
+        .foregroundStyle(Color.convertFromString(locationToEdit.pinColour))
     }
 }
 
 #Preview {
-    EditCustomPinView(locationToEdit: Location(id: UUID(), name: "Sample", locationDescription: "SMASMASMAMSMASMASMASMASMASAMSMASAMS", latitude: 55.1, longitude: 0.23))
+    EditCustomPinView(locationToEdit: Location(id: UUID(), name: "Sample", locationDescription: "SMASMASMAMSMASMASMASMASMASAMSMASAMS", pinColour: "blue", latitude: 55.1, longitude: 0.23))
 }

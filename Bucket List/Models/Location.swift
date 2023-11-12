@@ -8,19 +8,22 @@
 import SwiftData
 import MapKit
 import Foundation
+import SwiftUI
 
 @Model
 class Location: Identifiable, Equatable {
     let id: UUID
     var name: String
     var locationDescription: String
+    let pinColour: String
     let latitude: Double
     let longitude: Double
 
-    init(id: UUID, name: String, locationDescription: String, latitude: Double, longitude: Double) {
+    init(id: UUID, name: String, locationDescription: String, pinColour: String, latitude: Double, longitude: Double) {
         self.id = id
         self.name = name
         self.locationDescription = locationDescription
+        self.pinColour = pinColour
         self.latitude = latitude
         self.longitude = longitude
     }

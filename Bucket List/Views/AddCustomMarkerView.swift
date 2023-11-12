@@ -16,30 +16,32 @@ struct AddCustomMarkerView: View {
     
     @State private var locationName: String = ""
     @State private var locationDescription: String = ""
+    @State private var pinColour: String = ""
     
     @Binding var cameraPosition: MapCameraPosition
     @Binding var cameraCoordinates: CLLocationCoordinate2D
     
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    TextField("Insert name", text: $locationName)
-                }header: {
-                    Text("Pin name")
+            VStack {
+                Form {
+                    Section {
+                        TextField("Insert name", text: $locationName)
+                    }header: {
+                        Text("Pin name")
+                    }
+                    
+                    Section {
+                        TextField("Insert description", text: $locationDescription, axis: .vertical)
+                            .textFieldStyle(.automatic)
+                    }header: {
+                        Text("Pin description")
+                    }
                 }
-                
-                Section {
-                    TextField("Insert description", text: $locationDescription, axis: .vertical)
-                        .textFieldStyle(.automatic)
-                }header: {
-                    Text("Pin description")
-                }
-                
                 Section {
                     HStack {
                         Button {
-                            //set marker to colour
+                            pinColour = "blue"
                         } label: {
                             RoundedRectangle(cornerRadius: 5)
                                 .frame(width: 30, height: 30)
@@ -48,7 +50,7 @@ struct AddCustomMarkerView: View {
                         .padding(.horizontal)
                         
                         Button {
-                            //set marker to colour
+                            pinColour = "red"
                         } label: {
                             RoundedRectangle(cornerRadius: 5)
                                 .frame(width: 30, height: 30)
@@ -57,7 +59,7 @@ struct AddCustomMarkerView: View {
                         .padding(.horizontal)
                         
                         Button {
-                            //set marker to colour
+                            pinColour = "green"
                         } label: {
                             RoundedRectangle(cornerRadius: 5)
                                 .frame(width: 30, height: 30)
@@ -66,7 +68,7 @@ struct AddCustomMarkerView: View {
                         .padding(.horizontal)
                         
                         Button {
-                            //set marker to colour
+                            pinColour = "yellow"
                         } label: {
                             RoundedRectangle(cornerRadius: 5)
                                 .frame(width: 30, height: 30)
@@ -75,7 +77,7 @@ struct AddCustomMarkerView: View {
                         .padding(.horizontal)
                         
                         Button {
-                            //set marker to colour
+                            pinColour = "teal"
                         } label: {
                             RoundedRectangle(cornerRadius: 5)
                                 .frame(width: 30, height: 30)
@@ -87,18 +89,16 @@ struct AddCustomMarkerView: View {
                 } header: {
                     Text("Pin colour")
                 }
-                Section{
-                    Map(position: $cameraPosition)
-                        .disabled(true)
-                }
-                .frame(width: 350, height: 175)
-                .clipShape(RoundedRectangle(cornerRadius: 25))
+                
+                Map(initialPosition: cameraPosition) //camera coordinates changes on map movement but cameraPosition doesn't; pls fix cameraPosition at cameraCoordinates
+                    .disabled(true)
+                    .frame(width: 350, height: 175)
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
             }
-            
             .toolbar{
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done"){
-                        let newLocation = Location(id: UUID(), name: locationName, locationDescription: locationDescription, latitude: cameraCoordinates.latitude, longitude: cameraCoordinates.longitude)
+                        let newLocation = Location(id: UUID(), name: locationName, locationDescription: locationDescription, pinColour: pinColour, latitude: cameraCoordinates.latitude, longitude: cameraCoordinates.longitude)
                         
                         modelContext.insert(newLocation)
                         
@@ -106,6 +106,7 @@ struct AddCustomMarkerView: View {
                         catch {
                             print("Saving to modelContainer failed. \(error.localizedDescription)")
                         }
+                        dismissView()
                     }
                 }
                 
@@ -116,6 +117,19 @@ struct AddCustomMarkerView: View {
                 }
             }
         }
+    }
+}
+
+extension Color {
+    static func convertFromString(_ stringColor: String) -> Color {
+        let convertingTable: [String:Color] = [
+            "blue":.blue,
+            "red":.red,
+            "green":.green,
+            "yellow":.yellow,
+            "teal":.teal
+        ]
+        return convertingTable[stringColor.lowercased()] ?? .black
     }
 }
 

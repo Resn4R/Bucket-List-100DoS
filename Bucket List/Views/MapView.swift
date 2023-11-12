@@ -12,30 +12,38 @@ import SwiftUI
 struct MapView: View {
     @Query var locations: [Location]
 
-    @State var camera: MapCamera
     @Binding var cameraPosition: MapCameraPosition
     @State private var cameraCoordinates: CLLocationCoordinate2D = .defaultPosition
     
     @State private var showCustomMarkerSheet = false
+    //private var pinPostion: CLLocationCoordinate2D = .defaultPosition
     
     var body: some View {
         NavigationStack{
                 ZStack {
-                    Map(position: $cameraPosition ) {
+                    Map(position: $cameraPosition) {
                         ForEach(locations) { location in
                             let locationPosition = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-                            Annotation(coordinate: locationPosition) {
-                                //content
-                            } label: {
-                                Label(location.name, systemImage: "mappin")
+                            Annotation(location.name, coordinate: locationPosition) {
+                                NavigationLink {
+                                    EditCustomPinView(locationToEdit: location)
+                                } label: {
+                                    VStack {
+                                        Image(systemName: "mappin")
+                                        Text(location.name)
+                                    }
+                                }
                             }
-
                         }
                         UserAnnotation()
                     }
+                    .onAppear{ cameraPosition = .userLocation(fallback: .region(.defaultRegion)) }
+                    
                     .onMapCameraChange { mapCameraUpdateContext in
                         print("\(mapCameraUpdateContext.camera.centerCoordinate)")
+                        print("\(String(describing: cameraPosition.camera?.centerCoordinate))")
                         cameraCoordinates = mapCameraUpdateContext.camera.centerCoordinate
+                        cameraPosition = .automatic
                     }
                     .mapControls {
                         MapCompass()
@@ -55,7 +63,6 @@ struct MapView: View {
                             Button{
                                 showCustomMarkerSheet.toggle()
                             } label: {
-                                // label
                                 Image(systemName: "plus.circle") }
                                 .font(.title2)
                                 .frame(width: 45, height: 45)

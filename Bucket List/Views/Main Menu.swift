@@ -23,10 +23,8 @@ struct CustomText: View {
 struct Main_Menu: View {
     @Environment (\.modelContext) var modelContext
     @Query var locations: [Location]
-    
-    @State private var camera = MapCamera(centerCoordinate: CLLocationCoordinate2D(latitude: 51.2, longitude: -0.12), distance: 1500)
-    @State private var cameraPosition: MapCameraPosition = .region(.defaultRegion)
-    
+
+    @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .region(.defaultRegion))
     
     var body: some View {
         NavigationStack {
@@ -35,11 +33,13 @@ struct Main_Menu: View {
                     CustomText(text: "Add a new pin to your Bukkit")
                         .offset(y: 30)
                     
-                    NavigationLink(destination: MapView(camera: camera, cameraPosition: $cameraPosition), label: {
-                            Map(position: $cameraPosition)
-                                .frame(width: 350, height: 175)
-                                .clipShape(RoundedRectangle(cornerRadius: 25))
-                                .disabled(true)
+                    NavigationLink(destination: MapView(cameraPosition: $cameraPosition), label: {
+                        Map(initialPosition: cameraPosition){
+                            UserAnnotation()
+                        }
+                        .frame(width: 350, height: 175)
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .disabled(true)
                     })
                     .padding()
                     Section {
