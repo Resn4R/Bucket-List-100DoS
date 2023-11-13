@@ -43,11 +43,6 @@ struct Main_Menu: View {
                     })
                     .padding()
                     Section {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 25)
-                                .fill(.gray)
-                                .frame(minWidth: 350, minHeight: 270, maxHeight: .infinity)
-                                .opacity(0.1)
                             VStack{
                                 CustomText(text: "Your Saved Locations")
                                 
@@ -90,8 +85,9 @@ struct Main_Menu: View {
                                 }
                                 Spacer()
                             }
-                        }
-                        .frame(width: 350)
+                            .background(.gray.opacity(0.3))
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                            .frame(width: 350)
                     }
                 }
             }
@@ -103,4 +99,5 @@ struct Main_Menu: View {
 
 #Preview {
     Main_Menu()
+        .modelContainer(for: Location.self)
 }

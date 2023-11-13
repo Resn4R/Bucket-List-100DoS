@@ -43,7 +43,7 @@ struct MapView: View {
                     }
                     .onAppear{ cameraPosition = .userLocation(fallback: .region(.defaultRegion)) }
                     
-                    .onMapCameraChange { mapCameraUpdateContext in
+                    .onMapCameraChange(frequency: .continuous) { mapCameraUpdateContext in
                         print("\(mapCameraUpdateContext.camera.centerCoordinate)")
                         print("\(String(describing: cameraPosition.camera?.centerCoordinate))")
                         cameraCoordinates = mapCameraUpdateContext.camera.centerCoordinate
@@ -55,10 +55,8 @@ struct MapView: View {
                     }
                     .mapStyle(.standard(elevation: .realistic))
 
-                    Circle()
-                        .fill(.blue)
-                        .opacity(0.3)
-                        .frame(width: 32)
+                    Image(systemName: "mappin")
+                        .font(.title)
                         
                         
                     VStack {

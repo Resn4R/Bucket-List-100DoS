@@ -46,6 +46,7 @@ struct AddCustomMarkerView: View {
                                 .frame(width: 30, height: 30)
                                 .tint(.blue)
                         }
+                        .tag("blue")
                         .padding(.horizontal)
                         
                         Button {
@@ -55,6 +56,7 @@ struct AddCustomMarkerView: View {
                                 .frame(width: 30, height: 30)
                                 .tint(.red)
                         }
+                        .tag("red")
                         .padding(.horizontal)
                         
                         Button {
@@ -64,6 +66,7 @@ struct AddCustomMarkerView: View {
                                 .frame(width: 30, height: 30)
                                 .tint(.green)
                         }
+                        .tag("green")
                         .padding(.horizontal)
                         
                         Button {
@@ -73,6 +76,7 @@ struct AddCustomMarkerView: View {
                                 .frame(width: 30, height: 30)
                                 .tint(.yellow)
                         }
+                        .tag("yellow")
                         .padding(.horizontal)
                         
                         Button {
@@ -82,6 +86,7 @@ struct AddCustomMarkerView: View {
                                 .frame(width: 30, height: 30)
                                 .tint(.teal)
                         }
+                        .tag("teal")
                         .padding(.horizontal)
                     }
                     .padding()
@@ -89,7 +94,7 @@ struct AddCustomMarkerView: View {
                     Text("Pin colour")
                 }
                 ZStack {
-                    Map(initialPosition: cameraPosition) //camera coordinates changes on map movement but cameraPosition doesn't; pls fix cameraPosition at cameraCoordinates
+                    Map(initialPosition: cameraPosition) 
                         .disabled(true)
                         .frame(width: 350, height: 175)
                         .clipShape(RoundedRectangle(cornerRadius: 25))
