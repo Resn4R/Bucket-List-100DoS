@@ -39,66 +39,30 @@ struct AddCustomMarkerView: View {
                 }
                 Section {
                     HStack {
-                        Button {
-                            pinColour = "blue"
-                        } label: {
-                            RoundedRectangle(cornerRadius: 5)
-                                .frame(width: 30, height: 30)
-                                .tint(.blue)
+                        ForEach(["blue", "red", "green", "yellow", "teal"], id: \.self) { color in
+                            Button {
+                                pinColour = color
+                            } label: {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .frame(width: 30, height: 30)
+                                    .tint(Color.convertFromString(color))
+                            }
+                            .padding(.horizontal)
                         }
-                        .tag("blue")
-                        .padding(.horizontal)
                         
-                        Button {
-                            pinColour = "red"
-                        } label: {
-                            RoundedRectangle(cornerRadius: 5)
-                                .frame(width: 30, height: 30)
-                                .tint(.red)
-                        }
-                        .tag("red")
-                        .padding(.horizontal)
-                        
-                        Button {
-                            pinColour = "green"
-                        } label: {
-                            RoundedRectangle(cornerRadius: 5)
-                                .frame(width: 30, height: 30)
-                                .tint(.green)
-                        }
-                        .tag("green")
-                        .padding(.horizontal)
-                        
-                        Button {
-                            pinColour = "yellow"
-                        } label: {
-                            RoundedRectangle(cornerRadius: 5)
-                                .frame(width: 30, height: 30)
-                                .tint(.yellow)
-                        }
-                        .tag("yellow")
-                        .padding(.horizontal)
-                        
-                        Button {
-                            pinColour = "teal"
-                        } label: {
-                            RoundedRectangle(cornerRadius: 5)
-                                .frame(width: 30, height: 30)
-                                .tint(.teal)
-                        }
-                        .tag("teal")
-                        .padding(.horizontal)
                     }
                     .padding()
                 } header: {
                     Text("Pin colour")
+                        .foregroundStyle(Color.convertFromString(pinColour))
                 }
                 ZStack {
-                    Map(initialPosition: cameraPosition) 
+                    Map(initialPosition: cameraPosition)
                         .disabled(true)
                         .frame(width: 350, height: 175)
                         .clipShape(RoundedRectangle(cornerRadius: 25))
                     Image(systemName: "mappin")
+                        .foregroundStyle(Color.convertFromString(pinColour))
                 }
             }
             .toolbar{

@@ -42,7 +42,6 @@ struct MapView: View {
                         UserAnnotation()
                     }
                     .onAppear{ cameraPosition = .userLocation(fallback: .region(.defaultRegion)) }
-                    
                     .onMapCameraChange(frequency: .continuous) { mapCameraUpdateContext in
                         print("\(mapCameraUpdateContext.camera.centerCoordinate)")
                         print("\(String(describing: cameraPosition.camera?.centerCoordinate))")
