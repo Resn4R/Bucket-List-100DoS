@@ -16,17 +16,20 @@ struct MapView: View {
     @State private var cameraCoordinates: CLLocationCoordinate2D = .defaultPosition
     
     @State private var showCustomMarkerSheet = false
-    //private var pinPostion: CLLocationCoordinate2D = .defaultPosition
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
                 ZStack {
                     Map(position: $cameraPosition) {
                         ForEach(locations) { location in
+                            
                             let locationPosition = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+                            let mapRegion = MKCoordinateRegion(center: locationPosition, latitudinalMeters: 100, longitudinalMeters: 100)
+                            let cameraPosition: MapCameraPosition = .region(mapRegion)
+
                             Annotation(location.name, coordinate: locationPosition) {
                                 NavigationLink {
-                                    EditCustomPinView(locationToEdit: location)
+                                    EditCustomPinView(locationToEdit: location, cameraPosition: cameraPosition)
                                 } label: {
                                     VStack {
                                         Image(systemName: "mappin")
@@ -43,7 +46,6 @@ struct MapView: View {
                         print("\(mapCameraUpdateContext.camera.centerCoordinate)")
                         print("\(String(describing: cameraPosition.camera?.centerCoordinate))")
                         cameraCoordinates = mapCameraUpdateContext.camera.centerCoordinate
-                        cameraPosition = .automatic
                     }
                     .mapControls {
                         MapCompass()
@@ -77,7 +79,7 @@ struct MapView: View {
             }
         }
         .sheet(isPresented: $showCustomMarkerSheet, content: {
-            AddCustomMarkerView(cameraPosition: $cameraPosition, cameraCoordinates: $cameraCoordinates)
+            AddCustomMarkerView(cameraPosition: cameraPosition, cameraCoordinates: cameraCoordinates)
         })
     }
 }

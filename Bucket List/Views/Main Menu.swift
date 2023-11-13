@@ -59,7 +59,12 @@ struct Main_Menu: View {
                                 } else {
                                     List {
                                         ForEach(locations) { location in
-                                            NavigationLink(destination:EditCustomPinView(locationToEdit: location)) {
+                                            
+                                            let locationCoordinates = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+                                            let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
+                                            let cameraPosition: MapCameraPosition = .region(mapRegion)
+                                            
+                                            NavigationLink(destination:EditCustomPinView(locationToEdit: location, cameraPosition: cameraPosition)) {
                                                 HStack {
                                                     Image(systemName: "mappin")
                                                     Text(location.name)
