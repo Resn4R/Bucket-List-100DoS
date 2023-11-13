@@ -69,6 +69,7 @@ struct Main_Menu: View {
                                                     Image(systemName: "mappin")
                                                     Text(location.name)
                                                 }
+                                                .foregroundStyle(Color.convertFromString(location.pinColour))
                                             }
                                         }
                                         .onDelete { indexSet in

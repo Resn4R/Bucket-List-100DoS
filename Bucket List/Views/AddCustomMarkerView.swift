@@ -16,7 +16,7 @@ struct AddCustomMarkerView: View {
     
     @State private var locationName: String = ""
     @State private var locationDescription: String = ""
-    @State private var pinColour: String?
+    @State private var pinColour: String = ""
     
     @State var cameraPosition: MapCameraPosition
     @State var cameraCoordinates: CLLocationCoordinate2D

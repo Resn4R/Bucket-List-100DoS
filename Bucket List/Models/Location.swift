@@ -14,12 +14,12 @@ import SwiftUI
 class Location: Identifiable, Equatable {
     let id: UUID
     var name: String
-    var locationDescription: String
-    var pinColour: String?
+    var locationDescription: String = ""
+    var pinColour: String = ""
     let latitude: Double
     let longitude: Double
 
-    init(id: UUID, name: String, locationDescription: String, pinColour: String?, latitude: Double, longitude: Double) {
+    init(id: UUID, name: String, locationDescription: String, pinColour: String, latitude: Double, longitude: Double) {
         self.id = id
         self.name = name
         self.locationDescription = locationDescription

@@ -22,14 +22,18 @@ struct EditCustomPinView: View {
             Text(locationToEdit.locationDescription)
             Text("location coordinates: \(locationToEdit.latitude), \(locationToEdit.longitude)")
                 .padding()
-            Map(initialPosition: cameraPosition)
-                .onAppear{
-                    let locationCoordinates = CLLocationCoordinate2D(latitude: locationToEdit.latitude, longitude: locationToEdit.longitude)
-                    let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
-                    cameraPosition = .region(mapRegion)
-                }
+            ZStack {
+                Map(initialPosition: cameraPosition)
+                    .disabled(true)
+                    .onAppear{
+                        let locationCoordinates = CLLocationCoordinate2D(latitude: locationToEdit.latitude, longitude: locationToEdit.longitude)
+                        let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
+                        cameraPosition = .region(mapRegion)
+                    }
+                Image(systemName: "mappin")
+            }
         }
-        .foregroundStyle(Color.convertFromString(locationToEdit.pinColour ?? ""))
+        .foregroundStyle(Color.convertFromString(locationToEdit.pinColour))
     }
 }
 

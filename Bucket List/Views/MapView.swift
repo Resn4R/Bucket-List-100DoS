@@ -35,6 +35,7 @@ struct MapView: View {
                                         Image(systemName: "mappin")
                                         Text(location.name)
                                     }
+                                    .foregroundStyle(Color.convertFromString(location.pinColour))
                                 }
                             }
                         }
