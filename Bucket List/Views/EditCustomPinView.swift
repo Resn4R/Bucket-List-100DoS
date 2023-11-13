@@ -27,7 +27,6 @@ struct EditCustomPinView: View {
                     let locationCoordinates = CLLocationCoordinate2D(latitude: locationToEdit.latitude, longitude: locationToEdit.longitude)
                     let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
                     cameraPosition = .region(mapRegion)
-                    
                 }
         }
         .foregroundStyle(Color.convertFromString(locationToEdit.pinColour ?? ""))

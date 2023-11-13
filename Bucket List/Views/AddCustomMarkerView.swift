@@ -88,13 +88,13 @@ struct AddCustomMarkerView: View {
                 } header: {
                     Text("Pin colour")
                 }
+                ZStack {
                     Map(initialPosition: cameraPosition) //camera coordinates changes on map movement but cameraPosition doesn't; pls fix cameraPosition at cameraCoordinates
                         .disabled(true)
                         .frame(width: 350, height: 175)
                         .clipShape(RoundedRectangle(cornerRadius: 25))
-                        .onAppear{
-                            cameraPosition = .region(MKCoordinateRegion(center: cameraCoordinates, span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)))
-                        }
+                    Image(systemName: "mappin")
+                }
             }
             .toolbar{
                 ToolbarItem(placement: .topBarLeading) {

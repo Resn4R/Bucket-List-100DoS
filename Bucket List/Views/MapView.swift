@@ -78,9 +78,13 @@ struct MapView: View {
                     }
             }
         }
-        .sheet(isPresented: $showCustomMarkerSheet, content: {
-            AddCustomMarkerView(cameraPosition: cameraPosition, cameraCoordinates: cameraCoordinates)
-        })
+        .sheet(isPresented: $showCustomMarkerSheet) {
+            let locationCoordinates = CLLocationCoordinate2D(latitude: cameraCoordinates.latitude, longitude: cameraCoordinates.longitude)
+            let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
+            let mapCameraPosition: MapCameraPosition = .region(mapRegion)
+            
+            AddCustomMarkerView(cameraPosition: mapCameraPosition, cameraCoordinates: cameraCoordinates)
+        }
     }
 }
 
