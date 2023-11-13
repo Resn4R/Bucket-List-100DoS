@@ -68,7 +68,9 @@ struct AddCustomMarkerView: View {
             .toolbar{
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done"){
-                        let newLocation = Location(id: UUID(), name: locationName, locationDescription: locationDescription, pinColour: pinColour, latitude: cameraCoordinates.latitude, longitude: cameraCoordinates.longitude)
+                        let pinName = locationName.isEmpty ? "Unnamed Pin" : locationName
+                        
+                        let newLocation = Location(id: UUID(), name: pinName, locationDescription: locationDescription, pinColour: pinColour, latitude: cameraCoordinates.latitude, longitude: cameraCoordinates.longitude)
                         
                         print(newLocation)
                         

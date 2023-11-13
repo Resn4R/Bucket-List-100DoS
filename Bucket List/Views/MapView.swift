@@ -33,7 +33,7 @@ struct MapView: View {
                                 } label: {
                                     VStack {
                                         Image(systemName: "mappin")
-                                        Text(location.name)
+                                        //Text(location.name)
                                     }
                                     .foregroundStyle(Color.convertFromString(location.pinColour))
                                 }
