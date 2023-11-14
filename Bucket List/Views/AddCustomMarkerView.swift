@@ -111,7 +111,7 @@ extension Color {
     }
 }
 
-//#Preview {
-//    let cameraPosition: MapCameraPosition = .region(.defaultRegion)
-//    AddCustomMarkerView( cameraCentralPosition: cameraPosition)
-//}
+#Preview {
+    let cameraPosition: MapCameraPosition = .region(.defaultRegion)
+    return AddCustomMarkerView( cameraPosition: cameraPosition, cameraCoordinates: CLLocationCoordinate2D(latitude: 51.2, longitude: -0.12))
+}
