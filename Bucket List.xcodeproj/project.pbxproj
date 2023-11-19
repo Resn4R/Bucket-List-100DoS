@@ -85,6 +85,7 @@
 		4FA74F122AFD03FA00AFFBDC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4F5B64032B0A78B0006E9605 /* Result.swift */,
 				4FA74F102AFCFD1E00AFFBDC /* Location.swift */,
 			);
 			path = Models;
@@ -99,7 +100,6 @@
 				4FA74F0E2AFCFB5000AFFBDC /* AddCustomMarkerView.swift */,
 				4F81C5512B002FE8005F961B /* EditCustomPinView.swift */,
 				4F5B64052B0A7A9C006E9605 /* PinView.swift */,
-				4F5B64032B0A78B0006E9605 /* Result.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
