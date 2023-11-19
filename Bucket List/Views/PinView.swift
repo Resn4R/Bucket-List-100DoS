@@ -21,13 +21,14 @@ struct PinView: View {
     
     var body: some View {
         NavigationStack {
-            Section {
-                Text(pin.locationDescription)
-            }
-            .padding()
-            Spacer()
-            //wikipedia's "Nearby..." section
-
+            ScrollView {
+                Section {
+                    Text(pin.locationDescription)
+                }
+                .padding()
+                Spacer()
+                //wikipedia's "Nearby..." section
+                
                 ScrollView {
                     switch loadingState {
                     case .loading:
@@ -43,16 +44,18 @@ struct PinView: View {
                         }
                     case .failed:
                         ContentUnavailableView("Content Unavailable", systemImage: "tray.and.arrow.down", description: Text("Failed to fetch nearby locations.\nPlease try again."))
-                        
                     }
                 }
-            .frame(height: 300)
-            .background(Color.gray.opacity(0.1))
-            .clipShape(RoundedRectangle(cornerRadius: 25))
-            
-            Spacer()
-            ZStack {
+                .frame(height: 300)
+                .background(Color.gray.opacity(0.1))
+                .clipShape(RoundedRectangle(cornerRadius: 25))
+                
+                Spacer()
+                ZStack {
                     Map(initialPosition: cameraPosition)
+                        .mapControls{
+                            MapScaleView()
+                        }
                         .disabled(true)
                         .onAppear{
                             let locationCoordinates = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
@@ -67,8 +70,8 @@ struct PinView: View {
                         Image(systemName: "mappin")
                         Text(pin.name)
                     }
+                }
             }
-            
             .navigationTitle(pin.name)
             .navigationBarTitleDisplayMode(.automatic)
             .toolbar {
