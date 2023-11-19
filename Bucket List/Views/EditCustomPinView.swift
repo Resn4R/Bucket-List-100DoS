@@ -11,11 +11,6 @@ import MapKit
 
 struct EditCustomPinView: View {
     
-    enum LoadingState {
-        case loading, loaded, failed
-    }
-    
-    
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismissView
     
