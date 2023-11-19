@@ -42,7 +42,7 @@ struct Main_Menu: View {
                             
                             Annotation(location.name, coordinate: locationPosition) {
                                 NavigationLink {
-                                    EditCustomPinView(locationToEdit: location, cameraPosition: cameraPosition)
+                                    PinView(pin: location, cameraPosition: cameraPosition)
                                 } label: {
                                     VStack {
                                         Image(systemName: "mappin")
@@ -79,7 +79,7 @@ struct Main_Menu: View {
                                 let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
                                 let cameraPosition: MapCameraPosition = .region(mapRegion)
                                 
-                                NavigationLink(destination:EditCustomPinView(locationToEdit: location, cameraPosition: cameraPosition)) {
+                                NavigationLink(destination:PinView(pin: location, cameraPosition: cameraPosition)) {
                                     HStack {
                                         Image(systemName: "mappin")
                                         Text(location.name)

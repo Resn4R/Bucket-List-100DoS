@@ -11,6 +11,8 @@
 		4F2F2A3E2AF93BA900600F40 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2F2A3D2AF93BA900600F40 /* MapView.swift */; };
 		4F2F2A402AF93BAA00600F40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F2F2A3F2AF93BAA00600F40 /* Assets.xcassets */; };
 		4F2F2A432AF93BAA00600F40 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F2F2A422AF93BAA00600F40 /* Preview Assets.xcassets */; };
+		4F5B64042B0A78B0006E9605 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B64032B0A78B0006E9605 /* Result.swift */; };
+		4F5B64062B0A7A9C006E9605 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B64052B0A7A9C006E9605 /* PinView.swift */; };
 		4F81C5522B002FE8005F961B /* EditCustomPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F81C5512B002FE8005F961B /* EditCustomPinView.swift */; };
 		4FA74F0F2AFCFB5000AFFBDC /* AddCustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA74F0E2AFCFB5000AFFBDC /* AddCustomMarkerView.swift */; };
 		4FA74F112AFCFD1E00AFFBDC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA74F102AFCFD1E00AFFBDC /* Location.swift */; };
@@ -24,6 +26,8 @@
 		4F2F2A3D2AF93BA900600F40 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4F2F2A3F2AF93BAA00600F40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F2F2A422AF93BAA00600F40 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4F5B64032B0A78B0006E9605 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		4F5B64052B0A7A9C006E9605 /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
 		4F81C5512B002FE8005F961B /* EditCustomPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCustomPinView.swift; sourceTree = "<group>"; };
 		4FA74F0E2AFCFB5000AFFBDC /* AddCustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomMarkerView.swift; sourceTree = "<group>"; };
 		4FA74F102AFCFD1E00AFFBDC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 				4F2F2A3D2AF93BA900600F40 /* MapView.swift */,
 				4FA74F0E2AFCFB5000AFFBDC /* AddCustomMarkerView.swift */,
 				4F81C5512B002FE8005F961B /* EditCustomPinView.swift */,
+				4F5B64052B0A7A9C006E9605 /* PinView.swift */,
+				4F5B64032B0A78B0006E9605 /* Result.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -173,7 +179,9 @@
 				4F2F2A3E2AF93BA900600F40 /* MapView.swift in Sources */,
 				4F2F2A3C2AF93BA900600F40 /* Bucket_ListApp.swift in Sources */,
 				4F81C5522B002FE8005F961B /* EditCustomPinView.swift in Sources */,
+				4F5B64062B0A7A9C006E9605 /* PinView.swift in Sources */,
 				4FA74F112AFCFD1E00AFFBDC /* Location.swift in Sources */,
+				4F5B64042B0A78B0006E9605 /* Result.swift in Sources */,
 				4FE62D4C2AFBA80B00538887 /* AuthenticationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

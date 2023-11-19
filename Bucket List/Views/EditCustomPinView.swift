@@ -10,6 +10,12 @@ import SwiftUI
 import MapKit
 
 struct EditCustomPinView: View {
+    
+    enum LoadingState {
+        case loading, loaded, failed
+    }
+    
+    
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismissView
     
@@ -35,8 +41,7 @@ struct EditCustomPinView: View {
             }
             Spacer()
             ZStack {
-                Map(initialPosition: cameraPosition)
-                    .disabled(true)
+                Map(initialPosition: cameraPosition, interactionModes: .all)
                     .onAppear{
                         let locationCoordinates = CLLocationCoordinate2D(latitude: locationToEdit.latitude, longitude: locationToEdit.longitude)
                         let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
@@ -51,7 +56,6 @@ struct EditCustomPinView: View {
                     Text(locationToEdit.name)
                 }
             }
-            
             .foregroundStyle(Color.convertFromString(locationToEdit.pinColour))
         }
         .navigationTitle("Edit \(locationToEdit.name)")
@@ -69,9 +73,8 @@ struct EditCustomPinView: View {
 }
 
 #Preview {
-    var locationToEdit = Location(id: UUID(), name: "Sample", locationDescription: "asASDASDASD", pinColour: "blue", latitude: 51.5, longitude: -0.12)
+    let locationToEdit = Location(id: UUID(), name: "Sample", locationDescription: "asASDASDASD", pinColour: "blue", latitude: 51.5, longitude: -0.12)
     let cameraPosition: MapCameraPosition = .region(.defaultRegion)
     
     return EditCustomPinView(locationToEdit: locationToEdit, cameraPosition: cameraPosition)
-    
 }
