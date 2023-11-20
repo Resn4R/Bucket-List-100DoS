@@ -21,57 +21,59 @@ struct PinView: View {
     
     var body: some View {
         NavigationStack {
+            Section {
+                Text(pin.locationDescription)
+            }
+            .padding()
+            Spacer()
+            //wikipedia's "Nearby..." section
+            
             ScrollView {
-                Section {
-                    Text(pin.locationDescription)
-                }
-                .padding()
-                Spacer()
-                //wikipedia's "Nearby..." section
-                
-                ScrollView {
-                    switch loadingState {
-                    case .loading:
-                        ProgressView()
-                    case .loaded:
-                        Text("What's nearby...")
+                switch loadingState {
+                case .loading:
+                    ProgressView()
+                case .loaded:
+                    Text("What's nearby...")
+                    VStack(alignment: .leading) {
                         ForEach(pages, id: \.pageid) { page in
                             Text(page.title)
                                 .font(.headline)
                             + Text(": ")
-                            + Text("page description here")
+                            + Text(page.description)
                                 .italic()
                         }
-                    case .failed:
-                        ContentUnavailableView("Content Unavailable", systemImage: "tray.and.arrow.down", description: Text("Failed to fetch nearby locations.\nPlease try again."))
+                        
                     }
-                }
-                .frame(height: 300)
-                .background(Color.gray.opacity(0.1))
-                .clipShape(RoundedRectangle(cornerRadius: 25))
-                
-                Spacer()
-                ZStack {
-                    Map(initialPosition: cameraPosition)
-                        .mapControls{
-                            MapScaleView()
-                        }
-                        .disabled(true)
-                        .onAppear{
-                            let locationCoordinates = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
-                            let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
-                            cameraPosition = .region(mapRegion)
-                        }
-                        .frame(width: 350, height: 275)
-                        .border(Color.convertFromString(pin.pinColour))
-                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                    
-                    VStack {
-                        Image(systemName: "mappin")
-                        Text(pin.name)
-                    }
+                case .failed:
+                    ContentUnavailableView("Content Unavailable", systemImage: "tray.and.arrow.down", description: Text("Failed to fetch nearby locations.\nPlease try again."))
                 }
             }
+            .frame(width:350 ,height: 300)
+            .background(Color.gray.opacity(0.1))
+            .clipShape(RoundedRectangle(cornerRadius: 25))
+            
+            Spacer()
+            ZStack {
+                Map(initialPosition: cameraPosition)
+                    .mapControls{
+                        MapScaleView()
+                    }
+                    .disabled(true)
+                    .onAppear{
+                        let locationCoordinates = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+                        let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
+                        cameraPosition = .region(mapRegion)
+                    }
+                    .frame(width: 350, height: 275)
+                    .border(Color.convertFromString(pin.pinColour))
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                
+                VStack {
+                    Image(systemName: "mappin")
+                    Text(pin.name)
+                }
+            }
+            
             .navigationTitle(pin.name)
             .navigationBarTitleDisplayMode(.automatic)
             .toolbar {
