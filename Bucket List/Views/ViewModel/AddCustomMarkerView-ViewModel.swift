@@ -13,7 +13,6 @@ import Foundation
 extension AddCustomMarkerView {
     @MainActor class ViewModel: ObservableObject {
         
-        
         @Published var locationName: String = ""
         @Published var locationDescription: String = ""
         @Published var pinColour: String = ""

@@ -34,7 +34,7 @@ struct Main_Menu: View {
                 
                 NavigationLink(destination: MapView(cameraPosition: $viewModel.cameraPosition), label: {
                     Map(initialPosition: viewModel.cameraPosition){
-                        ForEach(viewModel.locations) { location in
+                        ForEach(locations) { location in
                             
                             let locationPosition = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
                             let mapRegion = MKCoordinateRegion(center: locationPosition, latitudinalMeters: 100, longitudinalMeters: 100)
@@ -65,7 +65,7 @@ struct Main_Menu: View {
                     Divider()
                         .frame(width: 350)
                     
-                    if viewModel.locations.isEmpty{
+                    if locations.isEmpty{
                         ContentUnavailableView(
                             "No saved pins",
                             systemImage: "mappin.slash.circle",
@@ -73,7 +73,7 @@ struct Main_Menu: View {
                         )
                     } else {
                         List {
-                            ForEach(viewModel.locations) { location in
+                            ForEach(locations) { location in
                                 
                                 let locationCoordinates = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
                                 let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
@@ -90,7 +90,7 @@ struct Main_Menu: View {
                             .onDelete { indexSet in
                                 withAnimation {
                                     indexSet.forEach { index in
-                                        let pinToDelete = viewModel.locations[index]
+                                        let pinToDelete = locations[index]
                                         modelContext.delete(pinToDelete)
                                     }
                                 }

@@ -43,7 +43,7 @@
                 NavigationLink(destination: MapView(cameraPosition: $viewModel.cameraPosition), label: {
 </string>
 				<key>trailing</key>
-				<string>                        ForEach(viewModel.locations) { location in
+				<string>                        ForEach(locations) { location in
                             
                             let locationPosition = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
 </string>

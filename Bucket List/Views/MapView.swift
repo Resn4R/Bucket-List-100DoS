@@ -5,18 +5,21 @@
 //  Created by Vito Borghi on 06/11/2023.
 //
 
+import SwiftData
 import MapKit
 import SwiftUI
 
 struct MapView: View {
     @StateObject private var viewModel = ViewModel()
+    @Query var locations: [Location]
+
     @Binding var cameraPosition: MapCameraPosition
 
     var body: some View {
         NavigationStack {
                 ZStack {
                     Map(position: $cameraPosition) {
-                        ForEach(viewModel.locations) { location in
+                        ForEach(locations) { location in
                             
                             let locationPosition = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
                             let mapRegion = MKCoordinateRegion(center: locationPosition, latitudinalMeters: 100, longitudinalMeters: 100)

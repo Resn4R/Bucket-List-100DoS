@@ -26,14 +26,18 @@ struct PinView: View {
             }
             .padding()
             Spacer()
-            //wikipedia's "Nearby..." section
             
+            Divider()
+                .frame(width: 350)
+            
+            Text("What's nearby...")
             ScrollView {
                 switch loadingState {
                 case .loading:
+                    Spacer()
                     ProgressView()
+                    Spacer()
                 case .loaded:
-                    Text("What's nearby...")
                     VStack(alignment: .leading) {
                         ForEach(pages, id: \.pageid) { page in
                             Text(page.title)
@@ -53,6 +57,12 @@ struct PinView: View {
             .clipShape(RoundedRectangle(cornerRadius: 25))
             
             Spacer()
+            
+            Divider()
+                .frame(width: 350)
+
+            Spacer()
+            
             ZStack {
                 Map(initialPosition: cameraPosition)
                     .mapControls{

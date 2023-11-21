@@ -12,7 +12,6 @@ import Foundation
 
 extension MapView {
    @MainActor class ViewModel: ObservableObject {
-       @Query var locations: [Location]
        @Published var cameraCoordinates: CLLocationCoordinate2D = .defaultPosition
        @Published var showCustomMarkerSheet = false
        
