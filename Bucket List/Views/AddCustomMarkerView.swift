@@ -10,13 +10,7 @@ import SwiftData
 import SwiftUI
 
 struct AddCustomMarkerView: View {
-    @Environment(\.dismiss) var dismissView
-    @Environment(\.modelContext) var modelContext
-    @Query var locations: [Location]
-    
-    @State private var locationName: String = ""
-    @State private var locationDescription: String = ""
-    @State private var pinColour: String = ""
+    @StateObject var viewModel = ViewModel()
     
     @State var cameraPosition: MapCameraPosition
     @State var cameraCoordinates: CLLocationCoordinate2D
@@ -26,12 +20,12 @@ struct AddCustomMarkerView: View {
             VStack {
                 Form {
                     Section {
-                        TextField("Insert name", text: $locationName)
+                        TextField("Insert name", text: $viewModel.locationName)
                     }header: {
                         Text("Pin name")
                     }
                     Section {
-                        TextField("Insert description", text: $locationDescription, axis: .vertical)
+                        TextField("Insert description", text: $viewModel.locationDescription, axis: .vertical)
                             .textFieldStyle(.automatic)
                     }header: {
                         Text("Pin description")
@@ -41,7 +35,7 @@ struct AddCustomMarkerView: View {
                     HStack {
                         ForEach(["blue", "red", "green", "yellow", "teal"], id: \.self) { color in
                             Button {
-                                pinColour = color
+                                viewModel.pinColour = color
                             } label: {
                                 RoundedRectangle(cornerRadius: 5)
                                     .frame(width: 30, height: 30)
@@ -54,7 +48,7 @@ struct AddCustomMarkerView: View {
                     .padding()
                 } header: {
                     Text("Pin colour")
-                        .foregroundStyle(Color.convertFromString(pinColour))
+                        .foregroundStyle(Color.convertFromString(viewModel.pinColour))
                 }
                 ZStack {
                     Map(initialPosition: cameraPosition)
@@ -62,35 +56,19 @@ struct AddCustomMarkerView: View {
                         .frame(width: 350, height: 175)
                         .clipShape(RoundedRectangle(cornerRadius: 25))
                     Image(systemName: "mappin")
-                        .foregroundStyle(Color.convertFromString(pinColour))
+                        .foregroundStyle(Color.convertFromString(viewModel.pinColour))
                 }
             }
             .toolbar{
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done"){
-                        let pinName = locationName.isEmpty ? "Unnamed Pin" : locationName
-                        
-                        let newLocation = Location(id: UUID(), name: pinName, locationDescription: locationDescription, pinColour: pinColour, latitude: cameraCoordinates.latitude, longitude: cameraCoordinates.longitude)
-                        
-                        print(newLocation)
-                        
-                        modelContext.insert(newLocation)
-                        print("newLocation added to modelContext.")
-                        do {
-                            print("saving...")
-                            try modelContext.save()
-                            print("save completed successfully.")
-                        }
-                        catch {
-                            print("Saving to modelContainer failed. \(error.localizedDescription)")
-                        }
-                        dismissView()
+                        viewModel.savePin(cameraPosition: cameraPosition, cameraCoordinates: cameraCoordinates)
                     }
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Cancel") {
-                        dismissView()
+                        viewModel.dismissView()
                     }
                 }
             }
@@ -98,20 +76,9 @@ struct AddCustomMarkerView: View {
     }
 }
 
-extension Color {
-    static func convertFromString(_ stringColor: String) -> Color {
-        let convertingTable: [String:Color] = [
-            "blue":.blue,
-            "red":.red,
-            "green":.green,
-            "yellow":.yellow,
-            "teal":.teal,
-        ]
-        return convertingTable[stringColor.lowercased()] ?? .black
-    }
-}
 
-#Preview {
-    let cameraPosition: MapCameraPosition = .region(.defaultRegion)
-    return AddCustomMarkerView( cameraPosition: cameraPosition, cameraCoordinates: CLLocationCoordinate2D(latitude: 51.2, longitude: -0.12))
-}
+
+//#Preview {
+//    let cameraPosition: MapCameraPosition = .region(.defaultRegion)
+//    return AddCustomMarkerView( cameraPosition: cameraPosition, cameraCoordinates: CLLocationCoordinate2D(latitude: 51.2, longitude: -0.12))
+//}
