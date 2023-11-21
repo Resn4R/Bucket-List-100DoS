@@ -22,6 +22,7 @@ struct CustomText: View {
 
 struct Main_Menu: View {
     @StateObject private var viewModel = ViewModel()
+    
     var body: some View {
         NavigationStack {
             VStack {

@@ -10,18 +10,14 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
-    @Query var locations: [Location]
-
+    @StateObject private var viewModel = ViewModel()
     @Binding var cameraPosition: MapCameraPosition
-    @State private var cameraCoordinates: CLLocationCoordinate2D = .defaultPosition
-    
-    @State private var showCustomMarkerSheet = false
-    
+
     var body: some View {
         NavigationStack {
                 ZStack {
                     Map(position: $cameraPosition) {
-                        ForEach(locations) { location in
+                        ForEach(viewModel.locations) { location in
                             
                             let locationPosition = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
                             let mapRegion = MKCoordinateRegion(center: locationPosition, latitudinalMeters: 100, longitudinalMeters: 100)
@@ -43,9 +39,7 @@ struct MapView: View {
                     }
                     .onAppear{ cameraPosition = .userLocation(fallback: .region(.defaultRegion)) }
                     .onMapCameraChange(frequency: .continuous) { mapCameraUpdateContext in
-                        print("\(mapCameraUpdateContext.camera.centerCoordinate)")
-                        print("\(String(describing: cameraPosition.camera?.centerCoordinate))")
-                        cameraCoordinates = mapCameraUpdateContext.camera.centerCoordinate
+                        viewModel.cameraCoordinates = mapCameraUpdateContext.camera.centerCoordinate
                     }
                     .mapControls {
                         MapCompass()
@@ -57,11 +51,10 @@ struct MapView: View {
                     Image(systemName: "mappin")
                         .font(.title)
                         
-                        
                     VStack {
                         HStack {
                             Button{
-                                showCustomMarkerSheet.toggle()
+                                viewModel.showCustomMarkerSheet.toggle()
                             } label: {
                                 Image(systemName: "plus.circle") }
                                 .font(.title2)
@@ -76,31 +69,16 @@ struct MapView: View {
                     }
             }
         }
-        .sheet(isPresented: $showCustomMarkerSheet) {
-            let locationCoordinates = CLLocationCoordinate2D(latitude: cameraCoordinates.latitude, longitude: cameraCoordinates.longitude)
-            let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
-            let mapCameraPosition: MapCameraPosition = .region(mapRegion)
-            
-            AddCustomMarkerView(cameraPosition: mapCameraPosition, cameraCoordinates: cameraCoordinates)
+        .sheet(isPresented: $viewModel.showCustomMarkerSheet) {
+            viewModel.addPin()
         }
     }
 }
 
-extension CLLocationCoordinate2D {
-    static let defaultPosition = CLLocationCoordinate2D(latitude: 51.2, longitude: -0.12)
+
+
+#Preview {
+    @State var cameraPosition: MapCameraPosition = .userLocation(fallback: .region(.defaultRegion))
+
+    return MapView(cameraPosition: $cameraPosition)
 }
-
-extension MKCoordinateRegion {
-    static let defaultRegion = MKCoordinateRegion(center: .defaultPosition, latitudinalMeters: 300_000, longitudinalMeters: 300_000)
-}
-
-
-//
-//#Preview {
-//    var customLocationPins = [Location]()
-//    
-//    var camera = MapCamera(centerCoordinate: CLLocationCoordinate2D(latitude: 51.2, longitude: -0.12), distance: 1500)
-//    var cameraPosition: MapCameraPosition = .region(.defaultRegion)
-//    
-//    MapView(camera: camera, cameraPosition: cameraPosition)
-//}
