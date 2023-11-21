@@ -21,20 +21,16 @@ struct CustomText: View {
 }
 
 struct Main_Menu: View {
-    @Environment (\.modelContext) var modelContext
-    @Query var locations: [Location]
-
-    @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .region(.defaultRegion))
-    
+    @StateObject private var viewModel = ViewModel()
     var body: some View {
         NavigationStack {
             VStack {
                 CustomText(text: "Add a new pin to your Bukkit")
                     .offset(y: 30)
                 
-                NavigationLink(destination: MapView(cameraPosition: $cameraPosition), label: {
-                    Map(initialPosition: cameraPosition){
-                        ForEach(locations) { location in
+                NavigationLink(destination: MapView(cameraPosition: $viewModel.cameraPosition), label: {
+                    Map(initialPosition: viewModel.cameraPosition){
+                        ForEach(viewModel.locations) { location in
                             
                             let locationPosition = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
                             let mapRegion = MKCoordinateRegion(center: locationPosition, latitudinalMeters: 100, longitudinalMeters: 100)
@@ -65,7 +61,7 @@ struct Main_Menu: View {
                     Divider()
                         .frame(width: 350)
                     
-                    if locations.isEmpty{
+                    if viewModel.locations.isEmpty{
                         ContentUnavailableView(
                             "No saved pins",
                             systemImage: "mappin.slash.circle",
@@ -73,7 +69,7 @@ struct Main_Menu: View {
                         )
                     } else {
                         List {
-                            ForEach(locations) { location in
+                            ForEach(viewModel.locations) { location in
                                 
                                 let locationCoordinates = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
                                 let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
@@ -90,11 +86,11 @@ struct Main_Menu: View {
                             .onDelete { indexSet in
                                 withAnimation {
                                     indexSet.forEach { index in
-                                        let pinToDelete = locations[index]
-                                        modelContext.delete(pinToDelete)
+                                        let pinToDelete = viewModel.locations[index]
+                                        viewModel.modelContext.delete(pinToDelete)
                                     }
                                 }
-                                do { try modelContext.save() }
+                                do { try viewModel.modelContext.save() }
                                 catch {
                                     print("Error when saving from item deletion. \(error.localizedDescription)")
                                 }

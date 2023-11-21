@@ -12,13 +12,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>36</string>
+					<string>32</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>35</string>
+					<string>31</string>
 					<key>Timestamp</key>
-					<string>721586559.453932</string>
+					<string>722264513.4607</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -36,14 +36,14 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>                    Map(initialPosition: cameraPosition){
+				<string>                    Map(initialPosition: viewModel.cameraPosition){
 </string>
 				<key>leading</key>
 				<string>                
-                NavigationLink(destination: MapView(cameraPosition: $cameraPosition), label: {
+                NavigationLink(destination: MapView(cameraPosition: $viewModel.cameraPosition), label: {
 </string>
 				<key>trailing</key>
-				<string>                        ForEach(locations) { location in
+				<string>                        ForEach(viewModel.locations) { location in
                             
                             let locationPosition = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
 </string>
