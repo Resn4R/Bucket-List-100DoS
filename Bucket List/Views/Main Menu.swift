@@ -109,9 +109,6 @@ struct Main_Menu: View {
                 .clipShape(RoundedRectangle(cornerRadius: 25))
                 .frame(width: 350)
             }
-            
-            .navigationTitle("Bukkit")
-            .navigationBarTitleDisplayMode(.large)
         }
     }
 }

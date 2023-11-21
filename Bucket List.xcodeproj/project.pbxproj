@@ -17,6 +17,7 @@
 		4F5B640B2B0CE41E006E9605 /* MapView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B640A2B0CE41E006E9605 /* MapView-ViewModel.swift */; };
 		4F5B640D2B0CEAFF006E9605 /* AddCustomMarkerView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B640C2B0CEAFF006E9605 /* AddCustomMarkerView-ViewModel.swift */; };
 		4F5B640F2B0CF473006E9605 /* EditCustomPinView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B640E2B0CF473006E9605 /* EditCustomPinView-ViewModel.swift */; };
+		4F5B64112B0D1CE3006E9605 /* AuthenticationView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B64102B0D1CE3006E9605 /* AuthenticationView-ViewModel.swift */; };
 		4F81C5522B002FE8005F961B /* EditCustomPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F81C5512B002FE8005F961B /* EditCustomPinView.swift */; };
 		4FA74F0F2AFCFB5000AFFBDC /* AddCustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA74F0E2AFCFB5000AFFBDC /* AddCustomMarkerView.swift */; };
 		4FA74F112AFCFD1E00AFFBDC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA74F102AFCFD1E00AFFBDC /* Location.swift */; };
@@ -36,6 +37,7 @@
 		4F5B640A2B0CE41E006E9605 /* MapView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView-ViewModel.swift"; sourceTree = "<group>"; };
 		4F5B640C2B0CEAFF006E9605 /* AddCustomMarkerView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddCustomMarkerView-ViewModel.swift"; sourceTree = "<group>"; };
 		4F5B640E2B0CF473006E9605 /* EditCustomPinView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditCustomPinView-ViewModel.swift"; sourceTree = "<group>"; };
+		4F5B64102B0D1CE3006E9605 /* AuthenticationView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationView-ViewModel.swift"; sourceTree = "<group>"; };
 		4F81C5512B002FE8005F961B /* EditCustomPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCustomPinView.swift; sourceTree = "<group>"; };
 		4FA74F0E2AFCFB5000AFFBDC /* AddCustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomMarkerView.swift; sourceTree = "<group>"; };
 		4FA74F102AFCFD1E00AFFBDC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		4F5B64092B0CE0DD006E9605 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4F5B64102B0D1CE3006E9605 /* AuthenticationView-ViewModel.swift */,
 				4F5B64072B0CE093006E9605 /* MainMenu-ViewModel.swift */,
 				4F5B640A2B0CE41E006E9605 /* MapView-ViewModel.swift */,
 				4F5B640C2B0CEAFF006E9605 /* AddCustomMarkerView-ViewModel.swift */,
@@ -207,6 +210,7 @@
 				4F5B64042B0A78B0006E9605 /* Result.swift in Sources */,
 				4FE62D4C2AFBA80B00538887 /* AuthenticationView.swift in Sources */,
 				4F5B640B2B0CE41E006E9605 /* MapView-ViewModel.swift in Sources */,
+				4F5B64112B0D1CE3006E9605 /* AuthenticationView-ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

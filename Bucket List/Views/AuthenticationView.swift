@@ -4,18 +4,11 @@
 //
 //  Created by Vito Borghi on 08/11/2023.
 //
-import LocalAuthentication
 import SwiftUI
 
 struct AuthenticationView: View {
     @Environment (\.dismiss) var quitApp
-    @State private var isUnlocked = false
-    
-    @State private var showUnavailableAuthAlert = false
-    @State private var unavailableAuthMessage: String?
-    
-    @State private var showAuthErrorAlert = false
-    @State private var authErrorMessage: String?
+    @StateObject var viewModel = ViewModel()
     
     var body: some View {
         NavigationStack{
@@ -24,56 +17,34 @@ struct AuthenticationView: View {
                 .bold()
                 .foregroundStyle(.black)
                 .fontDesign(.serif)
-            if isUnlocked {
-                NavigationLink("") {
-                    Main_Menu()
+            if viewModel.isUnlocked {
+                Main_Menu()
+            }
+            if viewModel.AuthNotAvailable{
+                Button("Unlock"){
+                    viewModel.authenticate()
                 }
+                .padding()
+                .background(.black)
+                .clipShape(RoundedRectangle(cornerRadius: 25))
+                .foregroundStyle(.white)
             }
-
         }
-        .onAppear(perform: { authenticate() })
+        .onAppear { viewModel.authenticate() }
         
-        .alert("Biometrics Unavailable", isPresented: $showUnavailableAuthAlert) {
+        .alert(viewModel.AuthErrorTitle ?? "Error", isPresented: $viewModel.showAuthErrorAlert) {
             Button("OK") {
-                showUnavailableAuthAlert = false
-                authenticate()
+                viewModel.showAuthErrorAlert = false
+                viewModel.authenticate()
             }
         } message: {
-                Text(unavailableAuthMessage ?? "FaceID not setup or not authorised. Please enable.")
+            Text(viewModel.authErrorMessage ?? "An error has occurred during authentication, please try again.")
         }
-        
-        .alert("Authentication Error", isPresented: $showAuthErrorAlert) {
-            Button("OK") { showAuthErrorAlert = false }
-        } message: {
-            Text(authErrorMessage ?? "Unknown authentication error, try again.")
-            
-        }
+
         
     }
     
-    func authenticate() {
-        let context = LAContext()
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            // if possible, this runs
-            let reason = "We need to unlock your App."
-            
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
-                if success {
-                    isUnlocked = true
-                } else {
-                    //auth failed
-                    showAuthErrorAlert = true
-                    authErrorMessage = authenticationError?.localizedDescription
-                }
-            }
-        } else {
-            showUnavailableAuthAlert = true
-            unavailableAuthMessage = error?.localizedDescription
-            
-        }
-    }
+
     
 }
 

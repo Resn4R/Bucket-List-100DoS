@@ -12,7 +12,7 @@ import SwiftUI
 struct Bucket_ListApp: App {
     var body: some Scene {
         WindowGroup {
-            Main_Menu()
+            AuthenticationView()
         }
         .modelContainer(for: Location.self)
     }
