@@ -6,7 +6,6 @@
 //
 
 import MapKit
-import SwiftData
 import SwiftUI
 
 struct AddCustomMarkerView: View {

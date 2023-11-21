@@ -5,8 +5,6 @@
 //  Created by Vito Borghi on 08/11/2023.
 //
 import MapKit
-import CoreLocation
-import SwiftData
 import SwiftUI
 
 struct CustomText: View {

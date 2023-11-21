@@ -23,7 +23,6 @@ extension MapView {
            
            return AddCustomMarkerView(cameraPosition: mapCameraPosition, cameraCoordinates: cameraCoordinates)
        }
-       
     }
 }
 

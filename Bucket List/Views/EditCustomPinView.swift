@@ -10,12 +10,12 @@ import SwiftUI
 import MapKit
 
 struct EditCustomPinView: View {
-    
-    @Environment(\.modelContext) var modelContext
-    @Environment(\.dismiss) var dismissView
+
+    @ObservedObject var viewModel = ViewModel()
     
     @State var locationToEdit: Location
-    @State var cameraPosition: MapCameraPosition 
+    @State var cameraPosition: MapCameraPosition
+
     
     var body: some View {
         NavigationStack {
@@ -36,12 +36,13 @@ struct EditCustomPinView: View {
             }
             Spacer()
             ZStack {
-                Map(initialPosition: cameraPosition, interactionModes: .all)
+                Map(initialPosition: cameraPosition, interactionModes: .zoom)
                     .onAppear{
                         let locationCoordinates = CLLocationCoordinate2D(latitude: locationToEdit.latitude, longitude: locationToEdit.longitude)
                         let mapRegion = MKCoordinateRegion(center: locationCoordinates, latitudinalMeters: 100, longitudinalMeters: 100)
                         cameraPosition = .region(mapRegion)
                     }
+
                     .frame(width: 350, height: 275)
                     .border(Color.convertFromString(locationToEdit.pinColour))
                     .clipShape(RoundedRectangle(cornerRadius: 25))
@@ -59,7 +60,7 @@ struct EditCustomPinView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Save") {
-                    dismissView()
+                    viewModel.dismissView()
                     //SwiftData should update items automatically when passed to a function. Need to double check though.
                 }
             }
@@ -67,9 +68,9 @@ struct EditCustomPinView: View {
     }
 }
 
-#Preview {
-    let locationToEdit = Location(id: UUID(), name: "Sample", locationDescription: "asASDASDASD", pinColour: "blue", latitude: 51.5, longitude: -0.12)
-    let cameraPosition: MapCameraPosition = .region(.defaultRegion)
-    
-    return EditCustomPinView(locationToEdit: locationToEdit, cameraPosition: cameraPosition)
-}
+//#Preview {
+//    let locationToEdit = Location(id: UUID(), name: "Sample", locationDescription: "asASDASDASD", pinColour: "blue", latitude: 51.5, longitude: -0.12)
+//    let cameraPosition: MapCameraPosition = .region(.defaultRegion)
+//    
+//    return EditCustomPinView(locationToEdit: locationToEdit, cameraPosition: cameraPosition)
+//}

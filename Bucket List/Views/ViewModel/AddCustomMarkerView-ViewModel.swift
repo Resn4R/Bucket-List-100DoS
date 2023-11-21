@@ -21,6 +21,9 @@ extension AddCustomMarkerView {
         @Published var locationDescription: String = ""
         @Published var pinColour: String = ""
         
+
+        
+
         func savePin(cameraPosition: MapCameraPosition, cameraCoordinates: CLLocationCoordinate2D) {
             
             let pinName = locationName.isEmpty ? "Unnamed Pin" : locationName
