@@ -13,7 +13,6 @@ import SwiftUI
 extension Main_Menu {
     @MainActor class ViewModel: ObservableObject {
         
-        @Environment (\.modelContext) var modelContext
         @Query var locations: [Location]
 
         @Published var cameraPosition: MapCameraPosition = .userLocation(fallback: .region(.defaultRegion))

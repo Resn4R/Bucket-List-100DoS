@@ -9,6 +9,10 @@ import MapKit
 import SwiftUI
 
 struct AddCustomMarkerView: View {
+    
+    @Environment(\.dismiss) var dismissView
+    @Environment(\.modelContext) var modelContext
+    
     @StateObject var viewModel = ViewModel()
     
     @State var cameraPosition: MapCameraPosition
@@ -61,13 +65,14 @@ struct AddCustomMarkerView: View {
             .toolbar{
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Done"){
-                        viewModel.savePin(cameraPosition: cameraPosition, cameraCoordinates: cameraCoordinates)
+                        viewModel.savePin(cameraPosition: cameraPosition, cameraCoordinates: cameraCoordinates, modelContext: modelContext)
+                        dismissView()
                     }
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Cancel") {
-                        viewModel.dismissView()
+                        dismissView()
                     }
                 }
             }

@@ -10,6 +10,8 @@ import SwiftUI
 import MapKit
 
 struct EditCustomPinView: View {
+    @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) var dismissView
 
     @ObservedObject var viewModel = ViewModel()
     
@@ -60,7 +62,7 @@ struct EditCustomPinView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Save") {
-                    viewModel.dismissView()
+                    dismissView()
                     //SwiftData should update items automatically when passed to a function. Need to double check though.
                 }
             }

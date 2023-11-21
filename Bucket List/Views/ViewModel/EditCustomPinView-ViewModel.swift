@@ -12,7 +12,6 @@ import Foundation
 
 extension EditCustomPinView {
     @MainActor class ViewModel: ObservableObject {
-        @Environment(\.modelContext) var modelContext
-        @Environment(\.dismiss) var dismissView
+
     }
 }

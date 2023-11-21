@@ -4,6 +4,8 @@
 //
 //  Created by Vito Borghi on 08/11/2023.
 //
+
+import SwiftData
 import MapKit
 import SwiftUI
 
@@ -19,6 +21,9 @@ struct CustomText: View {
 }
 
 struct Main_Menu: View {
+    @Environment (\.modelContext) var modelContext
+    @Query var locations: [Location]
+
     @StateObject private var viewModel = ViewModel()
     
     var body: some View {
@@ -86,10 +91,10 @@ struct Main_Menu: View {
                                 withAnimation {
                                     indexSet.forEach { index in
                                         let pinToDelete = viewModel.locations[index]
-                                        viewModel.modelContext.delete(pinToDelete)
+                                        modelContext.delete(pinToDelete)
                                     }
                                 }
-                                do { try viewModel.modelContext.save() }
+                                do { try modelContext.save() }
                                 catch {
                                     print("Error when saving from item deletion. \(error.localizedDescription)")
                                 }

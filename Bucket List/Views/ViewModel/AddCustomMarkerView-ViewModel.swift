@@ -13,9 +13,6 @@ import Foundation
 extension AddCustomMarkerView {
     @MainActor class ViewModel: ObservableObject {
         
-        @Environment(\.dismiss) var dismissView
-        @Environment(\.modelContext) var modelContext
-        @Query var locations: [Location]
         
         @Published var locationName: String = ""
         @Published var locationDescription: String = ""
@@ -24,7 +21,7 @@ extension AddCustomMarkerView {
 
         
 
-        func savePin(cameraPosition: MapCameraPosition, cameraCoordinates: CLLocationCoordinate2D) {
+        func savePin(cameraPosition: MapCameraPosition, cameraCoordinates: CLLocationCoordinate2D, modelContext: ModelContext) {
             
             let pinName = locationName.isEmpty ? "Unnamed Pin" : locationName
             
@@ -42,7 +39,6 @@ extension AddCustomMarkerView {
             catch {
                 print("Saving to modelContainer failed. \(error.localizedDescription)")
             }
-            dismissView()
         }
     }
 }
